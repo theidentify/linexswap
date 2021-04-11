@@ -29,6 +29,12 @@ const contract = web3Service.getContract(MasterChef.abi, masterchefAddress);
 const helper = new TokenHelper(web3Service, priceService);
 const masterchef = new Masterchef(contract, helper);
 
+app.get('/', (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.write('<h1>Hello from Express.js!</h1>');
+  res.end();
+});
+
 app.post('/webhook', async (req, res) => {
   const event = _.get(req, 'body.events[0]');
   const eventType = _.get(event, 'message.type');
