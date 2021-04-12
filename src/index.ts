@@ -39,6 +39,16 @@ app.get('/test', (req, res) => {
   res.status(200).json('Test Succeed');
 })
 
+app.get('/wallet/:id', async (req, res) => {
+  const address = _.get(req, 'params.id');
+  if(!isValidAddress) res.status(200).json('Invalid address');
+  const stakings = await masterchef.getStaking(pools, address);
+  res.status(200).json({
+    address,
+    stakings,
+  })
+})
+
 app.post('/webhook', async (req, res) => {
   const event = _.get(req, 'body.events[0]');
   const eventType = _.get(event, 'message.type');
