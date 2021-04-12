@@ -41,7 +41,7 @@ app.get('/test', (req, res) => {
 
 app.get('/wallet/:id', async (req, res) => {
   const address = _.get(req, 'params.id');
-  if(!isValidAddress) res.status(200).json('Invalid address');
+  if(!isValidAddress(address)) res.status(200).json('Invalid address');
   const stakings = await masterchef.getStaking(pools, address);
   res.status(200).json({
     address,
