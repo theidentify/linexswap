@@ -17,7 +17,7 @@ export const pools: PoolInfo[] = [
   },
   {
     poolId: 1,
-    lpAddress: "0xa527a61703d82139f8a06bc30097cc9caa2df5a6",
+    lpAddress: "0x0eD7e52944161450477ee417DE9Cd3a859b14fD0",
     tokenDecimals: 18,
     token0Address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
     token0Symbol: "Cake",
