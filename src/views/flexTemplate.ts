@@ -18,7 +18,7 @@ export const tableHeader = () => ({
       type: 'text',
       text: 'Pool',
       weight: 'bold',
-      color: '#7645d9',
+      color: '#7645D9',
       align: 'start',
       contents: [],
     },
@@ -26,7 +26,7 @@ export const tableHeader = () => ({
       type: 'text',
       text: 'Value',
       weight: 'bold',
-      color: '#7645d9',
+      color: '#7645D9',
       align: 'end',
       offsetEnd: '6%',
       contents: [],
@@ -47,15 +47,15 @@ export const summary = (totalValue: number) => ({
       type: 'text',
       text: 'Total',
       weight: 'bold',
-      color: '#452a7aff',
+      color: '#452A7AFF',
       align: 'start',
-      content: [],
+      contents: [],
     },
     {
       type: 'text',
       text: `$${formatNumber(totalValue)}`,
       weight: 'bold',
-      color: '#452a7a',
+      color: '#452A7A',
       align: 'end',
       contents: [],
     }
@@ -76,7 +76,7 @@ export const poolLine = (position: Position) => ({
           type: 'box',
           layout: 'vertical',
           flex: 8,
-          backgroundColor: '#fffff00',
+          backgroundColor: '#FFFFFF00',
           contents: [
             {
               type: 'box',
@@ -140,7 +140,7 @@ export const poolLine = (position: Position) => ({
           type: 'box',
           layout: 'vertical',
           flex: 4,
-          backgroundColor: '#ffffffff',
+          backgroundColor: '#FFFFFFFF',
           contents: [
             {
               type: 'text',
