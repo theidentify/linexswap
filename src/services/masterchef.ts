@@ -43,40 +43,51 @@ export class Masterchef {
 
         try {
           const pair = await this.helper.getTokenPair(lpAddress);
-          const poolInfo = {
-            poolId: pid,
-            tokenDecimals,
-            token0Address: pair.token0Address,
-            token0Symbol: pair.token0Symbol,
-            token0Decimals: pair.token0Decimals,
-            token0Logo: getTokenData(pair.token0Address).logo,
-            token1Address: pair.token1Address,
-            token1Symbol: pair.token1Symbol,
-            token1Decimals: pair.token1Decimals,
-            token1Logo: getTokenData(pair.token1Address).logo,
-            rewardAddress,
-            rewardSymbol,
-            rewardDecimals,
-            rewardLogo,
-            type: 'lp'
+
+          const token0Logo = _.get(getTokenData(pair.token0Address), 'logo');
+          const token1Logo = _.get(getTokenData(pair.token1Address), 'logo');
+          
+          if(!_.isNil(token0Logo) && !_.isNil(token1Logo)) {
+            const poolInfo = {
+              poolId: pid,
+              tokenDecimals,
+              lpAddress,
+              token0Address: pair.token0Address,
+              token0Symbol: pair.token0Symbol,
+              token0Decimals: pair.token0Decimals,
+              token0Logo,
+              token1Address: pair.token1Address,
+              token1Symbol: pair.token1Symbol,
+              token1Decimals: pair.token1Decimals,
+              token1Logo,
+              rewardAddress,
+              rewardSymbol,
+              rewardDecimals,
+              rewardLogo,
+              type: 'lp'
+            }
+            return poolInfo;
           }
-          return poolInfo;
         } catch {
           const tokenSymbol = await this.helper.getTokenSymbol(lpAddress);
-          const poolInfo = {
-            poolId: pid,
-            tokenAddress: lpAddress,
-            tokenSymbol,
-            tokenDecimals,
-            tokenLogo: getTokenData(lpAddress).logo,
-            rewardAddress,
-            rewardSymbol,
-            rewardDecimals,
-            rewardLogo,
-            type: 'single',
-          };
-          return poolInfo;
+          const tokenLogo = _.get(getTokenData(lpAddress), 'logo');
+          if (!_.isNil(tokenLogo)) {
+            const poolInfo = {
+              poolId: pid,
+              tokenAddress: lpAddress,
+              tokenSymbol,
+              tokenDecimals,
+              tokenLogo,
+              rewardAddress,
+              rewardSymbol,
+              rewardDecimals,
+              rewardLogo,
+              type: 'single',
+            };
+            return poolInfo;
+          }
         }
+        return null;
       })
     );
     return poolInfos.filter((poolInfo) => !_.isEmpty(poolInfo));

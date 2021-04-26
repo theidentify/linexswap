@@ -42,6 +42,7 @@ app.get('/test', (req, res) => {
 app.get('/wallet/:id', async (req, res) => {
   const address = _.get(req, 'params.id');
   if(!isValidAddress(address)) res.status(200).json('Invalid address');
+
   const stakings = await masterchef.getStaking(pools, address);
   res.status(200).json({
     address,
@@ -63,8 +64,6 @@ app.post('/webhook', async (req, res) => {
     } as any);
     return res.sendStatus(200);
   }
-
-  console.log('Line event', { event, eventType, message, replyToken });
 
   const address = message;
   const stakings = await masterchef.getStaking(pools, address);
@@ -96,8 +95,6 @@ app.post('/webhook', async (req, res) => {
       },
     },
   };
-
-  console.log({ flexMsg, addr, tHeader, poolLines, footerSum });
 
   await lineClient.replyMessage(replyToken, flexMsg);
   return res.sendStatus(200);
