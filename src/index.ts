@@ -71,10 +71,7 @@ app.post('/webhook', async (req, res) => {
     ['totalValue']
   ).reverse();
   const totalValue = positions.reduce((sum, position) => sum + position.totalValue, 0);
-
-  console.log({ address, stakings, positions, totalValue });
-
-  await lineClient.replyMessage(replyToken, {
+  const flexMsg: any = {
     type: 'flex',
     altText: 'Pancake Staking',
     contents: {
@@ -85,12 +82,16 @@ app.post('/webhook', async (req, res) => {
         contents: [
           addressBar(shortenAddress(address)),
           tableHeader(),
-          // ...positions.map((position) => poolLine(position)),
+          ...positions.map((position) => poolLine(position)),
           summary(totalValue),
         ],
       },
     },
-  } as any);
+  };
+
+  console.log({ flexMsg });
+
+  await lineClient.replyMessage(replyToken, flexMsg);
   return res.sendStatus(200);
 })
 
