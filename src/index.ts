@@ -64,6 +64,8 @@ app.post('/webhook', async (req, res) => {
     return res.sendStatus(200);
   }
 
+  console.log('Line event', { event, eventType, message, replyToken });
+
   const address = message;
   const stakings = await masterchef.getStaking(pools, address);
   const positions = _.sortBy(
